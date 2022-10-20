@@ -1,12 +1,9 @@
-import { createStore } from 'redux';
 import './App.css';
 import Card from './Card';
 import Product from './Product';
-import { Provider } from 'react-redux';
 import data from './data.json';
 import { useEffect, useState } from 'react';
 function App() {
-  // const [state,setState] = useState({options:[],type:""});
   const [options,setOptions] = useState([]);
   const [ProductType,setProductType] = useState("");
   let v = localStorage.getItem("oct-task-1");
@@ -21,19 +18,37 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className='suppliersContainer'>
         <button onClick={()=>showCart("Realme")}>Realme</button>
         <button onClick={()=>showCart("Samsung")}>Samsung</button>
         <button onClick={()=>showCart("Intex")}>Intex</button>
       </div>
-      <div>
+      <div className='cardsContainer'>
+        <div className='card'>
         {Object.values(cards).filter(e=>e.type === "Realme").map(e=><Card name={e.name} quantity={e.quantity} price={e.price} total={e.total}/>)}
+        </div>
+        <div className='card'>
+        {Object.values(cards).filter(e=>e.type === "Samsung").map(e=><Card name={e.name} quantity={e.quantity} price={e.price} total={e.total}/>)}
+        </div>
+        <div className='card'>
+        {Object.values(cards).filter(e=>e.type === "Intex").map(e=><Card name={e.name} quantity={e.quantity} price={e.price} total={e.total}/>)}
+        </div>
       </div>
+      <div>
+      <div>
       {
-        ProductType=="Realme"?<div>
-        <Product options={options} type={ProductType} name={options[0].nameU}/>
-        </div>:""
+        ProductType=="Realme"?
+        <Product options={options} type={ProductType} Name = "Realme C2" />
+        :""
       }
+      {
+        ProductType=="Samsung"?<Product options={options} type={ProductType} Name = "Galaxy" />:""
+      }
+      {
+        ProductType=="Intex"?<Product options={options} type={ProductType} Name = "Intex Cloud 4G" />:""
+      }
+      </div>
+      </div>
     </>
   );
 }
